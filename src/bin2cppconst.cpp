@@ -31,8 +31,7 @@ int main(int argc, char const *argv[])
     }
     else
     {
-        unsigned int bytesPerLine = argc == 4 ? std::atoi(argv[3]) :
-            NUM_BYTES_PER_LINE;
+        unsigned int bytesPerLine = argc == 4 ? std::atoi(argv[3]) : NUM_BYTES_PER_LINE;
         unsigned int xorValue = argc == 3 ? std::atoi(argv[2]) : 0;
         unsigned int fileSize;
         std::vector<unsigned char> content;
@@ -57,7 +56,7 @@ int main(int argc, char const *argv[])
         fout.setf(std::ios::uppercase);
         fout.fill('0');
 
-        for (int i = 0; i < fileSize; ++i)
+        for (unsigned int i = 0; i < fileSize; ++i)
         {
             fout << "0x";
             unsigned int value = static_cast<unsigned int>(content[i]);
