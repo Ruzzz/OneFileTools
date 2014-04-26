@@ -4,13 +4,12 @@
 #include <fstream>
 #include <vector>
 
-
 const unsigned int NUM_BYTES_PER_LINE = 8;
 const char USAGE[] =
 {
     "bin2cppconst v0.1a by Ruzzz\n"
     "Convert binary file to .cpp source file"
-        " with 'const unsigned char[]' inside.\n"
+    " with 'const unsigned char[]' inside.\n"
     "Usage: bin2cppconst bin-file [xor-byte] [bytes-per-line = 8]\n"
     "\n"
     "  xor-byte                - If not 0 then xor apply to each byte.\n"
@@ -18,9 +17,8 @@ const char USAGE[] =
     "\n"
     "Note: It is not optimized version, use for small files only.\n"
     "Add cpp file to project and use 'extern const unsigned char'"
-        " to access from other files.\n"
+    " to access from other files.\n"
 };
-
 
 int main(int argc, char const *argv[])
 {
@@ -44,7 +42,7 @@ int main(int argc, char const *argv[])
             fin.seekg(0);
             // Read file to buffer
             content.reserve(fileSize);
-            fin.read(reinterpret_cast<char*>(&content[0]), fileSize);
+            fin.read(reinterpret_cast<char *>(&content[0]), fileSize);
         }
 
         std::string outFileName(argv[1]);

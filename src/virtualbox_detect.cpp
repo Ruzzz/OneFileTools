@@ -1,12 +1,8 @@
 #include <windows.h>
 
-#ifdef NOCRT
-#define WINMAIN WINAPI
-#else
-#define WINMAIN
-#endif
+#pragma comment(lib, "kernel32.lib")
 
-void WINMAIN main()
+void WINAPI main()
 {
     bool detected = LoadLibraryA("VBoxHook.dll") != NULL
         && CreateFileA("\\\\.\\VBoxMiniRdrDN",
