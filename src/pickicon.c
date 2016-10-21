@@ -1,9 +1,13 @@
 #include <windows.h>
 #include <shlobj.h>
 
+// TODO:
+//   - MAX_PATH size of path
+//   - Print path to cout
+
 #pragma comment(lib, "kernel32.lib")
 #pragma comment(lib, "user32.lib")
-#pragma comment(lib, "Shell32.lib")
+#pragma comment(lib, "shell32.lib")
 
 void WINAPI main()
 {
