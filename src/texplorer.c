@@ -26,8 +26,8 @@ const char USAGE[] =
 {
     "ExplorerTools v1.0 by Ruslan Zaporojets\n"
     "Usage: texplorer.exe -r|-e|-s\n"
-	"\n"
-	"Actions:\n"
+    "\n"
+    "Actions:\n"
     "  -r                      - Safe restart.\n"
     "  -e                      - Safe exit only.\n"
     "  -s                      - If not running then start.\n"
