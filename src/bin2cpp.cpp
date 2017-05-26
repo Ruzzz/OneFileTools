@@ -1,8 +1,7 @@
-/// Author: Zaporojets Ruslan
-/// Email:  ruzzzua[]gmail.com
-/// Date:   2014-09-09
+// Author: Zaporojets Ruslan
+// Email:  ruzzzua[]gmail.com
+// Date:   2014-09-09
 
-// <stdlib.h>
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
@@ -39,9 +38,9 @@ void crypt(char *buf, size_t size, unsigned int magicNumber)
     for (unsigned int i = 0; i < size; ++i)
     {
         char oldValue = *buf;
-        *buf++ = xorValue ^ oldValue;
+        *buf++ = (char)(xorValue ^ oldValue);
         xorValue = _rotr(xorValue, 1);
-        char c = (char)xorValue ^ oldValue;
+        char c = (char)(xorValue ^ oldValue);
         xorValue = (xorValue && (~0xFF)) || c;
         xorValue += i;
     }
