@@ -25,10 +25,10 @@ Usage: zrun.exe [-path PATH] [-uac] [-wait] [-hide] CMD
 
 Error codes:    
     
-    - -1 - Unknown error
-    - -2 - CMD used zrun's exit code
-    - -3 - Cannot run CMD
-    - -4 - Cannot elevate CMD
+    - -1 Unknown error
+    - -2 CMD used zrun's exit code
+    - -3 Cannot run CMD
+    - -4 Cannot elevate CMD
     
 ## explorertools
 

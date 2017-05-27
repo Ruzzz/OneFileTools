@@ -1,8 +1,9 @@
-::
-:: Version: 2017.05.24
-:: Usage:   gen_vc.cmd [-vs2017] [-vs2015] [-vs2013] [-vs2012] [-vs2010] [-vs2008] [-x64] [-ansi] [-con] [-xp] [-nocrt] CL_PARAMS [-link LINK_PARAMS]
-::
-
+:: Author: Ruslan Zaporojets
+:: Email:  ruzzzua[]gmail.com
+:: Date:   2017-05-25
+:: Usage:  gen_vc.cmd [-vs2017] [-vs2015] [-vs2013] [-vs2012] [-vs2010]
+::                    [-vs2008] [-x64] [-ansi] [-con] [-xp] [-nocrt]
+::                    CL_PARAMS [-link LINK_PARAMS]
 @echo off
 setlocal
 set __IN__=kernel32.lib user32.lib shell32.lib advapi32.lib ole32.lib
