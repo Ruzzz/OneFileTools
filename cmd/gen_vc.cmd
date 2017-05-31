@@ -1,23 +1,27 @@
 :: Author: Ruslan Zaporojets
 :: Email:  ruzzzua[]gmail.com
-:: Date:   2017-05-25
-:: Usage:  gen_vc.cmd [-vs2017] [-vs2015] [-vs2013] [-vs2012] [-vs2010]
-::                    [-vs2008] [-x64] [-ansi] [-con] [-xp] [-nocrt]
+:: Date:   2017-05-31
+:: Usage:  gen_vc.cmd [-vsall|-vs2017|-vs2015|-vs2013|-vs2012|-vs2010|-vs2008]
+::                    [-x64] [-ansi] [-con] [-xp] [-nocrt]
 ::                    CL_PARAMS [-link LINK_PARAMS]
+
+
 @echo off
 setlocal
 set __IN__=kernel32.lib user32.lib shell32.lib advapi32.lib ole32.lib
 set __NOCRT_DEFINE__=NOCRT
 set __NOCRT_ENTRY__=main
-set __DEF_VS_VER__=2017
+set __DEF_VS_VER__=all
 
+echo :: Gen: %~nx0 %*
 echo @echo off
 echo setlocal
-echo :: Gen: %~nx0 %*
+
 
 ::
-:: Parse Command Line Params
+:: PARSE COMMAND LINE PARAMS
 ::
+
 
 set __OUT__=
 :PARAM_PARSE
@@ -92,9 +96,11 @@ shift
 goto :PARAM_PARSE
 :PARAM_PARSED
 
+
 ::
-:: Init Toolchain
+:: INIT TOOLCHAIN (ALL LITLE MAGIC HERE)
 ::
+
 
 set __CL__=/W4 /MT /GF /D NDEBUG /D WIN32 /D _WINDOWS
 if (%__ANSI__%)==() set __CL__=%__CL__% /D _UNICODE /D UNICODE
@@ -125,9 +131,11 @@ set __CL__=%__CL__% /GL
 set __LINK__=%__LINK__% /LTCG
 :NOCRT_END
 
+
 ::
-:: Init XP ToolChain
+:: INIT XP TOOLCHAIN
 ::
+
 
 if (%__XP_TOOLCHAIN__%)==() goto :XP_END
 set __CL__=%__CL__% /D_USING_V110_SDK71_
@@ -139,19 +147,26 @@ goto :XP_X32_END
 set __LINK__=%__LINK__% /SUBSYSTEM:%__MACHINE__%,5.01
 set __XP_PATH_SUFFIX__=
 :XP_X32_END
-echo :: Init XP ToolChain
+
+echo.
+echo.
+echo ::
+echo :: INIT XP TOOLCHAIN
+echo ::
+echo.
+echo.
 echo set SDK71PATH=%%ProgramFiles%%\Microsoft SDKs\Windows\7.1A
 echo path %%SDK71PATH%%\Bin%__XP_PATH_SUFFIX__%;%%PATH%%
 echo set INCLUDE=%%INCLUDE%%;%%SDK71PATH%%\Include
 echo set LIB=%%LIB%%;%%SDK71PATH%%\Lib%__XP_PATH_SUFFIX__%
-echo.
 :XP_END
 
+
 ::
-:: Init VC++ compiler
+:: INIT VC++ COMPILER
 ::
 
-echo :: Build
+
 if (%__VS_VER__%)==() set __VS_VER__=%__DEF_VS_VER__%
 if (%__VS_VER__%)==(2017) goto :BUILD_VS2017
 
@@ -162,49 +177,43 @@ goto :BUILD_VCVARS_AFTER
 set __VCVARS__=..\..\VC\bin\vcvars32.bat
 :BUILD_VCVARS_AFTER
 
-if (%__VS_VER__%)==(2015) goto :BUILD_VS2015
-if (%__VS_VER__%)==(2013) goto :BUILD_VS2013
-if (%__VS_VER__%)==(2012) goto :BUILD_VS2012
-if (%__VS_VER__%)==(2010) goto :BUILD_VS2010
-if (%__VS_VER__%)==(2008) goto :BUILD_VS2008
-
+echo.
+echo.
+echo ::
+echo :: INIT VC++ COMPILER
+echo ::
+echo.
+echo.
+if (%__VS_VER__%)==(2015) (call  :PRINT_BUILD_VS2015  :ERROR
+                           goto  :PRINT_BUILD)
+if (%__VS_VER__%)==(2013) (call  :PRINT_BUILD_VS2013  :ERROR
+                           goto  :PRINT_BUILD)
+if (%__VS_VER__%)==(2012) (call  :PRINT_BUILD_VS2012  :ERROR
+                           goto  :PRINT_BUILD)
+if (%__VS_VER__%)==(2010) (call  :PRINT_BUILD_VS2010  :ERROR
+                           goto  :PRINT_BUILD)
+if (%__VS_VER__%)==(2008) (call  :PRINT_BUILD_VS2008  :ERROR
+                           goto  :PRINT_BUILD)
+if (%__VS_VER__%)==(all)  (call  :PRINT_BUILD_VS_ALL
+                           goto  :PRINT_BUILD)
 set __ERROR__=Invalid compiler version: %__VS_VER__%
 goto :ERROR
 
-:BUILD_VS2008
-echo call "%%VS90COMNTOOLS%%\%__VCVARS__%"
-goto :BUILD
-
-:BUILD_VS2010
-echo call "%%VS100COMNTOOLS%%\%__VCVARS__%"
-goto :BUILD
-
-:BUILD_VS2012
-echo call "%%VS110COMNTOOLS%%\%__VCVARS__%"
-goto :BUILD
-
-:BUILD_VS2013
-echo call "%%VS120COMNTOOLS%%\%__VCVARS__%"
-goto :BUILD
-
-:BUILD_VS2015
-echo :: VS140COMNTOOLS_in_VS2017_fix.reg
-echo :: https://gist.github.com/Ruzzz/38dc70f4b850dd5e379f8cfa2cbf09a3
-echo call "%%VS140COMNTOOLS%%\%__VCVARS__%"
-goto :BUILD
-
-:BUILD_VS2017
-echo :: VS150COMNTOOLS_fix.cmd
-echo :: https://gist.github.com/Ruzzz/754abea012dc9e5825e33ff3ccb67296
-echo call "%%VS150COMNTOOLS%%\..\..\VC\Auxiliary\Build\vcvarsall.bat" %__ARCH__%
-:: echo call "%%VS150COMNTOOLS%%\VsDevCmd.bat" -arch=%__ARCH__%
-goto :BUILD
 
 ::
-:: Build
+:: BUILD
 ::
 
-:BUILD
+
+:PRINT_BUILD
+echo.
+echo.
+echo ::
+echo :: BUILD
+echo ::
+echo.
+echo.
+echo :BUILD
 echo if ERRORLEVEL 1 goto :ERROR
 echo set CL=%__CL__%
 echo set LINK=%__LINK__%
@@ -223,8 +232,93 @@ echo exit %%ERRORLEVEL%%
 
 endlocal
 exit /b 0
+
 :ERROR
-echo [genvc.cmd] ERROR: %__ERROR__% >&2
+echo [gen_vc.cmd] ERROR: %__ERROR__% >&2
 endlocal
 pause
 exit /b 1
+
+
+::
+:: INIT SELECTED VERSION OF VS
+::
+:: Use:      call  :PRINT_BUILD_NNN     LABEL_IF_NOT_EXISTS
+:: Example:  call  :PRINT_BUILD_VS2008  :ERROR
+:: Example:  call  :PRINT_BUILD_VS2008  :TRY_INIT_VS2010
+::
+
+
+:PRINT_BUILD_VS2008
+set __DEV_PATH__=%%VS90COMNTOOLS%%\%__VCVARS__%
+echo :TRY_INIT_VS2008
+echo if not exist "%__DEV_PATH__%" goto %1
+echo call "%__DEV_PATH__%"
+echo goto :BUILD
+goto :EOF
+
+
+:PRINT_BUILD_VS2010
+set __DEV_PATH__=%%VS100COMNTOOLS%%\%__VCVARS__%
+echo :TRY_INIT_VS2010
+echo if not exist "%__DEV_PATH__%" goto %1
+echo call "%__DEV_PATH__%"
+echo goto :BUILD
+goto :EOF
+
+
+:PRINT_BUILD_VS2012
+set __DEV_PATH__=%%VS110COMNTOOLS%%\%__VCVARS__%
+echo :TRY_INIT_VS2012
+echo if not exist "%__DEV_PATH__%" goto %1
+echo call "%__DEV_PATH__%"
+echo goto :BUILD
+goto :EOF
+
+
+:PRINT_BUILD_VS2013
+set __DEV_PATH__=%%VS120COMNTOOLS%%\%__VCVARS__%
+echo :TRY_INIT_VS2013
+echo if not exist "%__DEV_PATH__%" goto %1
+echo call "%__DEV_PATH__%"
+echo goto :BUILD
+goto :EOF
+
+
+:PRINT_BUILD_VS2015
+set __DEV_PATH__=%%VS140COMNTOOLS%%\%__VCVARS__%
+echo :TRY_INIT_VS2015
+echo :: VS140COMNTOOLS_in_VS2017_fix.reg
+echo :: https://gist.github.com/Ruzzz/38dc70f4b850dd5e379f8cfa2cbf09a3
+echo if not exist "%__DEV_PATH__%" goto %1
+echo call "%__DEV_PATH__%"
+echo goto :BUILD
+goto :EOF
+
+
+:PRINT_BUILD_VS2017
+set __DEV_PATH__=%%VS150COMNTOOLS%%\..\..\VC\Auxiliary\Build\vcvarsall.bat
+:: set __DEV_PATH__=%%VS150COMNTOOLS%%\VsDevCmd.bat
+echo :TRY_INIT_VS2017
+echo :: VS150COMNTOOLS_fix.cmd
+echo :: https://gist.github.com/Ruzzz/754abea012dc9e5825e33ff3ccb67296
+echo if not exist "%__DEV_PATH__%" goto %1
+echo call "%__DEV_PATH__%" %__ARCH__%
+:: echo call "%__DEV_PATH__%" -arch=%__ARCH__%
+echo goto :BUILD
+goto :EOF
+
+
+:PRINT_BUILD_VS_ALL
+call  :PRINT_BUILD_VS2017  :TRY_INIT_VS2015
+echo.
+call  :PRINT_BUILD_VS2015  :TRY_INIT_VS2013
+echo.
+call  :PRINT_BUILD_VS2013  :TRY_INIT_VS2012
+echo.
+call  :PRINT_BUILD_VS2012  :TRY_INIT_VS2010
+echo.
+call  :PRINT_BUILD_VS2010  :TRY_INIT_VS2008
+echo.
+call  :PRINT_BUILD_VS2008  :ERROR
+goto :EOF
