@@ -1,0 +1,9 @@
+Windows Registry Editor Version 5.00
+
+[-HKEY_CLASSES_ROOT\Directory\shell\git_shell]
+
+[HKEY_CLASSES_ROOT\Directory\shell\git_gui]
+@="Git GUI Here"
+
+[HKEY_CLASSES_ROOT\Directory\shell\git_gui\command]
+@="\"c:\\ProgramData\\scoop\\apps\\git\\current\\cmd\\git-gui.exe\" \"--working-dir\" \"%1\""
