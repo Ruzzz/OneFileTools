@@ -13,7 +13,7 @@ echo Process: %1
 echo ------------------------------
 @echo on
 
-takeown /r /skipsl /f %1 && icacls %1 /T /L /Q /RESET
+takeown /r /skipsl /d Y /f %1 && icacls %1 /T /L /Q /RESET
 
 @echo off
 if not %ERRORLEVEL%==0 (
