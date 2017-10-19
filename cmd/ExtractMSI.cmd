@@ -1,0 +1,1 @@
+msiexec /a "%~1" TARGETDIR="%~dpn1_%date%" /qb || pause
