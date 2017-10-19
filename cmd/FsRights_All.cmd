@@ -13,7 +13,7 @@ echo Process: %1
 echo ------------------------------
 @echo on
 
-cacls %1 /T /P "BUILTIN\Administrators":F "BUILTIN\Users":F
+cacls %1 /T /P "SYSTEM":F "BUILTIN\Administrators":F "BUILTIN\Users":F
 
 @echo off
 if not %ERRORLEVEL%==0 (
