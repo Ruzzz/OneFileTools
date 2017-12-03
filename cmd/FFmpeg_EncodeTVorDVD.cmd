@@ -32,7 +32,11 @@ ffmpeg %TEST% -i "%~1" %VIDEO_PAN_SCALE% %VIDEO_1% %AUDIO% %OUTFRM% "%~dpn1_tv.%
 ::ffmpeg %TEST% -i "%~1" %VIDEO_PAN_SCALE% %VIDEO_A% -an     %OUTFRM% NUL
 ::ffmpeg %TEST% -i "%~1" %VIDEO_PAN_SCALE% %VIDEO_B% %AUDIO% %OUTFRM% "%~dpn1.%OUTEXT%"
 @echo off
+if errorlevel 1 goto :ERROR
 
 SHIFT
 SHIFT
 GOTO :LOOP
+
+:ERROR
+pause
