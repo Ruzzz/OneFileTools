@@ -1,1 +1,1 @@
-innounp.exe -x -m -d"%~n1_%date%" %1 || pause
+innounp.exe -x -m -d"%~n1_%random%" %1 || pause

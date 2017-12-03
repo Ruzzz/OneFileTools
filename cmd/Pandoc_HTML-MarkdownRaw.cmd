@@ -1,1 +1,1 @@
-pandoc -f html -t markdown-raw_html -s %1 -o "%~dpn1_raw_%date%_%random%.md"
+pandoc -f html -t markdown-raw_html -s %1 -o "%~dpn1_raw_%random%.md"

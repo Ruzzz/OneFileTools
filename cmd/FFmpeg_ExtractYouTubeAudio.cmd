@@ -6,7 +6,7 @@
 if (%1)==() goto :NO_PARAMETER
 
 :LOOP
-ffmpeg -i %1 -bsf:a aac_adtstoasc -c:a copy "%~dpn1_%date%_%random%.m4a"
+ffmpeg -i %1 -bsf:a aac_adtstoasc -c:a copy "%~dpn1_%random%.m4a"
 shift
 if (%1)==() goto :EOF
 goto :LOOP

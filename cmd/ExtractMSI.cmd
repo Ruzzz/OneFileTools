@@ -1,1 +1,1 @@
-msiexec /a "%~1" TARGETDIR="%~dpn1_%date%" /qb || pause
+msiexec /a "%~1" TARGETDIR="%~dpn1_%random%" /qb || pause
