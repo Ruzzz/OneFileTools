@@ -52,13 +52,15 @@ def decode(text):
 #
 #  Main
 #
-    
-i = 1 
-while i < len(sys.argv):
+ 
+for path in sys.argv[1:]:
     try:
-        data = open(sys.argv[i], "rb").read()
+        data = open(path, "rb").read()
         torrent = decode(data)
-        os.system('start "" ' + torrent['comment'])
+        if len(torrent['comment']) > 0:
+            print('Open', torrent['comment'])
+            os.system('start "" ' + torrent['comment'])
+        else:
+            print(path, ': URL not found')
     except:
         None
-    i += 1
