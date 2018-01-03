@@ -168,7 +168,7 @@ echo set LIB=%%LIB%%;%%SDK71PATH%%\Lib%__XP_PATH_SUFFIX__%
 
 
 if (%__VS_VER__%)==() set __VS_VER__=%__DEF_VS_VER__%
-if (%__VS_VER__%)==(2017) goto :BUILD_VS2017
+if (%__VS_VER__%)==(2017) goto :BUILD_VCVARS_AFTER
 
 if not (%__ARCH__%)==(x64) goto :BUILD_VCVARS_X32
 set __VCVARS__=..\..\VC\bin\amd64\vcvars64.bat
@@ -184,6 +184,8 @@ echo :: INIT VC++ COMPILER
 echo ::
 echo.
 echo.
+if (%__VS_VER__%)==(2017) (call  :PRINT_BUILD_VS2017  :ERROR
+                           goto  :PRINT_BUILD)
 if (%__VS_VER__%)==(2015) (call  :PRINT_BUILD_VS2015  :ERROR
                            goto  :PRINT_BUILD)
 if (%__VS_VER__%)==(2013) (call  :PRINT_BUILD_VS2013  :ERROR
