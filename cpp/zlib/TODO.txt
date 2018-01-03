@@ -1,0 +1,1 @@
+CC=cl CFLAGS="-MT" ./configure --static --prefix=../../zlib_x64

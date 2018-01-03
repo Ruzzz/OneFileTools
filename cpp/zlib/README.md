@@ -1,0 +1,6 @@
+- Move to [include] files:
+    - zconf.h
+    - zlib.h
+- Move to [src] files:
+    - *.h
+    - *.c

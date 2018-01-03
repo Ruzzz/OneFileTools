@@ -1,0 +1,7 @@
+- Move to [include] files:
+    - lsmash.h
+- Move to [src] dirs:
+    - codecs
+    - common
+	- core
+	- importer
