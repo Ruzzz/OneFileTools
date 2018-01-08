@@ -1,5 +1,5 @@
 #!/bin/bash
-# USAGE: this.sh IN_DIR OUT_DIR 
+# USAGE: this.sh [--asm] --in IN_DIR --out OUT_DIR
 
 
 # Default params
@@ -28,6 +28,8 @@ done
 # Make
 # cd "$( dirname "${BASH_SOURCE[0]}" )"/$IN_REL_DIR
 cd $IN_DIR
+
+if false; then
 CC=cl ./configure \
     --prefix=$OUT_DIR \
     --disable-cli \
@@ -37,5 +39,8 @@ CC=cl ./configure \
     --disable-opencl \
     $NO_ASM_OPT \
     --extra-cflags="-MT"
+fi
+
+make clean
 make
 make install

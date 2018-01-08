@@ -6,34 +6,38 @@
 ::     - pacman -Syu
 ::     - pacman -Su
 ::     - pacman -S pkg-config make diffutils
-::     - pacman -Rs nasm
-:: - Install and add to path: http://www.nasm.us/
-
+::     TODO: - pacman -S yasm 
 
 :: PARAMS
-set __IN_DIR__=d:/Libs/dist/x264
-set __OUT_DIR__=d:/Libs/bin/x264
-set __PLATFORM__=x64
-set __ASM__=1
+set __IN_DIR__=d:\Libs\dist\ffmpeg
+set __OUT_DIR__=../../bin/ffmpeg
+set __PLATFORM__=x32
+set __H264_DIR__=../../bin/x264
+set __ASM__=0
+
 
 
 if "%__PLATFORM__%" == "x32" (
+    set __SH_PARAMS__=--x32
     set __CL_PLATFORM___=x86
     set __MINGW_PLATFORM___=MINGW32
     set __OUT_DIR__=%__OUT_DIR__%_x32
+    set __H264_DIR__=%__H264_DIR__%_x32
 ) else (
     set __CL_PLATFORM___=amd64
     set __MINGW_PLATFORM___=MINGW64
     set __OUT_DIR__=%__OUT_DIR__%_x64
+    set __H264_DIR__=%__H264_DIR__%_x64
 )
 if "%__ASM__%" == "1" (
-    set __SH_PARAMS__=--asm
+    set __SH_PARAMS__=%__SH_PARAMS__% --asm
     set __OUT_DIR__=%__OUT_DIR__%_asm
+    set __H264_DIR__=%__H264_DIR__%_asm
 )
 
 
 :: GET SOURCE
-if not exist %__IN_DIR__% git clone --depth=1 http://git.videolan.org/git/x264.git %__IN_DIR__%
+if not exist %__IN_DIR__% git clone --depth=1 https://github.com/FFmpeg/FFmpeg.git %__IN_DIR__%
 
 
 :: PREPARE OUTPUT DIR
@@ -58,5 +62,5 @@ set MSYSTEM=%__MINGW_PLATFORM___%
 
 
 :: COMPILE
-%MSYS2_ROOT%\usr\bin\bash.exe --login -x %~dpn0.sh %__SH_PARAMS__% --in %__IN_DIR__% --out %__OUT_DIR__%
+%MSYS2_ROOT%\usr\bin\bash.exe --login -x %~dpn0.sh %__SH_PARAMS__% --in %__IN_DIR__% --out %__OUT_DIR__% --h264 %__H264_DIR__%
 pause
