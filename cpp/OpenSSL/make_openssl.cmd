@@ -7,16 +7,16 @@
 
 
 :: PARAMS
-set __IN_DIR__=d:\Libs\dist\openssl-OpenSSL_1_0_2l
-set __OUT_DIR__=d:\Libs\bin\OpenSSL
+set __IN_DIR__=%DEV_LIBS_DISTR%\openssl-OpenSSL_1_0_2l
+set __OUT_DIR__=%DEV_LIBS%\OpenSSL
 set __PLATFORM__=x32
 set __XP__=0
 set __OPENSSL_VER__=102l
 set __OPENSSL_10x__=1
 
 
-set __OUT_CONFIG__=%__OUT_DIR__%_%__OPENSSL_VER__%_Config
-set __OUT_DIR__=%__OUT_DIR__%_%__OPENSSL_VER__%_%__PLATFORM__%
+set __OUT_CONFIG__=%__OUT_DIR__%_%__OPENSSL_VER__%\Config
+set __OUT_DIR__=%__OUT_DIR__%_%__OPENSSL_VER__%\%__PLATFORM__%
 if (%__PLATFORM__%)==(x64) (
     set __CL_PLATFORM__=amd64
     set __CONFIGURE_PLATFORM__=VC-WIN64A

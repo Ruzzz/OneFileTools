@@ -12,10 +12,10 @@ OUT_DIR=
 while [ "$1" != "" ]; do
     case $1 in
         -i | --in )     shift 
-                        IN_DIR=$1
+                        IN_DIR=${1//\\//}
                         ;;
         -o | --out )    shift 
-                        OUT_DIR=$1
+                        OUT_DIR=${1//\\//}
                         ;;
         -a | --asm )    NO_ASM_OPT=
                         ;;
@@ -26,10 +26,9 @@ done
 
 
 # Make
-# cd "$( dirname "${BASH_SOURCE[0]}" )"/$IN_REL_DIR
 cd $IN_DIR
 
-if false; then
+# TODO: if false; then
 CC=cl ./configure \
     --prefix=$OUT_DIR \
     --disable-cli \
@@ -39,7 +38,7 @@ CC=cl ./configure \
     --disable-opencl \
     $NO_ASM_OPT \
     --extra-cflags="-MT"
-fi
+# fi
 
 make clean
 make

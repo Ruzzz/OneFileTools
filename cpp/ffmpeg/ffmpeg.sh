@@ -15,15 +15,15 @@ H264_DIR=
 while [ "$1" != "" ]; do
     case $1 in
         -i | --in )     shift
-                        IN_DIR=$1
+                        IN_DIR=${1//\\//}
                         ;;
         -o | --out )    shift
-                        OUT_DIR=$1
+                        OUT_DIR=${1//\\//}
                         ;;
         -a | --asm )    NO_ASM_OPT=
                         ;;
         --h264 )        shift
-                        H264_DIR=$1
+                        H264_DIR=${1//\\//}
                         ;;
         --x32 )         PLATFORM=x86_32  # or x86
                         TARGET_OS=win32

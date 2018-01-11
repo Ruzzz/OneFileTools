@@ -9,30 +9,29 @@
 ::     TODO: - pacman -S yasm 
 
 :: PARAMS
-set __IN_DIR__=d:\Libs\dist\ffmpeg
-set __OUT_DIR__=../../bin/ffmpeg
+set __IN_DIR__=%DEV_LIBS_DISTR%\ffmpeg
+set __OUT_DIR__=%DEV_LIBS%/ffmpeg
 set __PLATFORM__=x32
-set __H264_DIR__=../../bin/x264
+set __H264_DIR__=%DEV_LIBS%/x264
 set __ASM__=0
 
 
-
-if "%__PLATFORM__%" == "x32" (
-    set __SH_PARAMS__=--x32
-    set __CL_PLATFORM___=x86
-    set __MINGW_PLATFORM___=MINGW32
-    set __OUT_DIR__=%__OUT_DIR__%_x32
-    set __H264_DIR__=%__H264_DIR__%_x32
-) else (
-    set __CL_PLATFORM___=amd64
-    set __MINGW_PLATFORM___=MINGW64
-    set __OUT_DIR__=%__OUT_DIR__%_x64
-    set __H264_DIR__=%__H264_DIR__%_x64
-)
 if "%__ASM__%" == "1" (
     set __SH_PARAMS__=%__SH_PARAMS__% --asm
     set __OUT_DIR__=%__OUT_DIR__%_asm
     set __H264_DIR__=%__H264_DIR__%_asm
+)
+if "%__PLATFORM__%" == "x32" (
+    set __SH_PARAMS__=%__SH_PARAMS__% --x32
+    set __CL_PLATFORM___=x86
+    set __MINGW_PLATFORM___=MINGW32
+    set __OUT_DIR__=%__OUT_DIR__%/x32
+    set __H264_DIR__=%__H264_DIR__%/x32
+) else (
+    set __CL_PLATFORM___=amd64
+    set __MINGW_PLATFORM___=MINGW64
+    set __OUT_DIR__=%__OUT_DIR__%/x64
+    set __H264_DIR__=%__H264_DIR__%/x64
 )
 
 

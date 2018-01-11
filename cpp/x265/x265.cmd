@@ -1,6 +1,6 @@
 :: PARAMS
-set __IN_DIR__=d:\Libs\dist\x265
-set __OUT_DIR__=d:\Libs\bin\x265
+set __IN_DIR__=%DEV_LIBS_DISTR%/x265
+set __OUT_DIR__=%DEV_LIBS%/x265
 set __PLATFORM__=x64
 set __ASM__=1
 
@@ -12,23 +12,23 @@ set __ASM__=1
 set __BUILD_DIR__=vs2017
 set __GENERATOR__=Visual Studio 15
 set __CMAKE_ASM_PARAM__=-DENABLE_ASSEMBLY=OFF
-if "%__PLATFORM__%" == "x32" (
-    set __MSBUILD_PLATFORM__=Win32
-    set __CL_PLATFORM___=x86
-    set __OUT_DIR__=%__OUT_DIR__%_x32
-    set __BUILD_DIR__=%__BUILD_DIR__%_x32
-) else (
-    set __MSBUILD_PLATFORM__=x64
-    set __CL_PLATFORM___=amd64
-    set __GENERATOR__=%__GENERATOR__% Win64
-    set __OUT_DIR__=%__OUT_DIR__%_x64
-    set __BUILD_DIR__=%__BUILD_DIR__%_x64
-)
 if "%__ASM__%" == "1" (
     
     set __CMAKE_ASM_PARAM__=-DENABLE_ASSEMBLY=ON
     set __OUT_DIR__=%__OUT_DIR__%_asm
     set __BUILD_DIR__=%__BUILD_DIR__%_asm
+)
+if "%__PLATFORM__%" == "x32" (
+    set __MSBUILD_PLATFORM__=Win32
+    set __CL_PLATFORM___=x86
+    set __OUT_DIR__=%__OUT_DIR__%_x32
+    set __BUILD_DIR__=%__BUILD_DIR__%\x32
+) else (
+    set __MSBUILD_PLATFORM__=x64
+    set __CL_PLATFORM___=amd64
+    set __GENERATOR__=%__GENERATOR__% Win64
+    set __OUT_DIR__=%__OUT_DIR__%_x64
+    set __BUILD_DIR__=%__BUILD_DIR__%\x64
 )
 
 
@@ -60,5 +60,4 @@ popd
 
 
 :: TODO: copy Include and Lib
-
 pause
