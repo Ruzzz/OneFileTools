@@ -16,11 +16,6 @@ set __H264_DIR__=%DEV_LIBS%/x264
 set __ASM__=0
 
 
-if "%__ASM__%" == "1" (
-    set __SH_PARAMS__=%__SH_PARAMS__% --asm
-    set __OUT_DIR__=%__OUT_DIR__%_asm
-    set __H264_DIR__=%__H264_DIR__%_asm
-)
 if "%__PLATFORM__%" == "x32" (
     set __SH_PARAMS__=%__SH_PARAMS__% --x32
     set __CL_PLATFORM___=x86
@@ -32,6 +27,11 @@ if "%__PLATFORM__%" == "x32" (
     set __MINGW_PLATFORM___=MINGW64
     set __OUT_DIR__=%__OUT_DIR__%/x64
     set __H264_DIR__=%__H264_DIR__%/x64
+)
+if "%__ASM__%" == "1" (
+    set __SH_PARAMS__=%__SH_PARAMS__% --asm
+    set __OUT_DIR__=%__OUT_DIR__%_asm
+    set __H264_DIR__=%__H264_DIR__%_asm
 )
 
 

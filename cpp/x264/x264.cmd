@@ -17,10 +17,6 @@ set __PLATFORM__=x64
 set __ASM__=1
 
 
-if "%__ASM__%" == "1" (
-    set __SH_PARAMS__=--asm
-    set __OUT_DIR__=%__OUT_DIR__%_asm
-)
 if "%__PLATFORM__%" == "x32" (
     set __CL_PLATFORM___=x86
     set __MINGW_PLATFORM___=MINGW32
@@ -29,6 +25,10 @@ if "%__PLATFORM__%" == "x32" (
     set __CL_PLATFORM___=amd64
     set __MINGW_PLATFORM___=MINGW64
     set __OUT_DIR__=%__OUT_DIR__%/x64
+)
+if "%__ASM__%" == "1" (
+    set __SH_PARAMS__=--asm
+    set __OUT_DIR__=%__OUT_DIR__%_asm
 )
 
 
