@@ -1,4 +1,5 @@
-# Set CMAKE_PREFIX_PATH
+# CMAKE_PREFIX_PATH
+# set(X264_USE_ASM ON)
 
 # x264/include/x264.h
 #     /lib32/libx264.lib
@@ -9,7 +10,9 @@ if(CMAKE_SIZEOF_VOID_P EQUAL 8)
 elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
     set(X264_LIB_SUFFIX lib32)
 endif()
-set(X264_LIB_SUFFIX ${X264_LIB_SUFFIX}_asm)
+if(X264_USE_ASM)
+    set(X264_LIB_SUFFIX ${X264_LIB_SUFFIX}_asm)
+endif()
 
 find_path(X264_INCLUDE_DIR x264.h)
 find_library(X264_LIBRARY libx264 PATH_SUFFIXES ${X264_LIB_SUFFIX})
