@@ -1,21 +1,25 @@
+# Updated: 2018/01/12 (yyyy/mm/dd)
+
 # CMAKE_PREFIX_PATH
 # set(X264_USE_ASM ON)
 
 # x264/include/x264.h
 #     /lib32/libx264.lib
 #     /lib64/libx264.lib
+#     /lib32_asm/libx264.lib
+#     /lib64_asm/libx264.lib
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-    set(X264_LIB_SUFFIX lib64)
+    set(LIB_SUFFIX lib64)
 elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
-    set(X264_LIB_SUFFIX lib32)
+    set(LIB_SUFFIX lib32)
 endif()
 if(X264_USE_ASM)
-    set(X264_LIB_SUFFIX ${X264_LIB_SUFFIX}_asm)
+    set(LIB_SUFFIX ${LIB_SUFFIX}_asm)
 endif()
 
 find_path(X264_INCLUDE_DIR x264.h)
-find_library(X264_LIBRARY libx264 PATH_SUFFIXES ${X264_LIB_SUFFIX})
+find_library(X264_LIBRARY libx264 PATH_SUFFIXES ${LIB_SUFFIX})
 
 add_library(x264 STATIC IMPORTED)
 

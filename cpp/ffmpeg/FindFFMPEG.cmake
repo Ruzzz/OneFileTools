@@ -1,3 +1,5 @@
+# Updated: 2018/01/11 (yyyy/mm/dd)
+
 # CMAKE_PREFIX_PATH
 # set(FFMPEG_USE_ASM ON)
 # target_link_libraries(${PROJECT_NAME} ffmpeg::avcodec ffmpeg::avutil ffmpeg::swresample ffmpeg::swscale)
