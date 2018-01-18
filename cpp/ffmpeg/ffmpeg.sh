@@ -43,8 +43,11 @@ cd $IN_DIR
 
 # if false; then
 # TODO: --disable-everything --disable-swresample --disable-avdevice --disable-avformat --disable-postproc --disable-avfilter
+# TODO: --enable-protocol=NAME
 CC=cl ./configure \
-    --disable-everything \
+    --enable-encoder=libx264 \
+    --enable-decoder=h264 \
+    --enable-libx264 \
     --prefix=$OUT_DIR \
     --toolchain=msvc \
     --enable-gpl \
@@ -54,9 +57,6 @@ CC=cl ./configure \
     --arch=$PLATFORM \
     --enable-pic \
     --target-os=$TARGET_OS \
-    --enable-libx264 \
-    --enable-decoder=h264 \
-    --enable-encoder=libx264 \
     --extra-cflags="-MT -I$H264_INCLUDE -DNO_PREFIX -fPIC" \
     --extra-cflags="-MT -I$H264_INCLUDE -DNO_PREFIX -fPIC" \
     --extra-ldflags="-LIBPATH:$H264_LIB"

@@ -1,0 +1,3 @@
+libavcodec\h264dec.h
+- #define MAX_SLICES 32
++ #define MAX_SLICES 512

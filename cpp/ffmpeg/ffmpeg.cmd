@@ -14,7 +14,7 @@ set __OUT_DIR__=%DEV_LIBS%/ffmpeg
 set __PLATFORM__=x64
 set __H264_INCLUDE__=%DEV_LIBS%/x264/include
 set __H264_LIB__=%DEV_LIBS%/x264/lib
-set __ASM__=0
+set __ASM__=1
 
 
 if "%__PLATFORM__%" == "x32" (
