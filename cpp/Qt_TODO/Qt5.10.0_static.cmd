@@ -16,6 +16,7 @@ if not exist "%VS150COMNTOOLS%" (
 )
 call "%VS150COMNTOOLS%\..\..\VC\Auxiliary\Build\vcvarsall.bat" %__CL_PLATFORM___%
 
+cd /d %__IN_DIR__%
 %__IN_DIR__%\configure.bat ^
     -static ^
     -static-runtime ^
