@@ -14,6 +14,7 @@ if(CMAKE_SIZEOF_VOID_P EQUAL 8)
 elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
     set(LIB_SUFFIX lib32)
 endif()
+
 if(X264_USE_ASM)
     set(LIB_SUFFIX ${LIB_SUFFIX}_asm)
 endif()

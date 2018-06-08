@@ -7,7 +7,7 @@
 ::     - pacman -Su
 ::     - pacman -S pkg-config make diffutils
 ::     - pacman -Rs nasm
-:: - Install and add to path: http://www.nasm.us/
+:: - Install and add to PATH: http://www.nasm.us/
 
 
 :: PARAMS
