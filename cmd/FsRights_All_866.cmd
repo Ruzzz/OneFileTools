@@ -13,7 +13,7 @@ echo Process: %1
 echo ------------------------------
 @echo on
 
-cacls %1 /T /P "BUILTIN\Администраторы":C "BUILTIN\Пользователи":R
+icacls %1 /inheritance:r /grant Все:F /T /L /Q
 
 @echo off
 if not %ERRORLEVEL%==0 (
